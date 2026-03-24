@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Race Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .track {
+            width: 90%;
+            height: 60px;
+            border: 2px solid black;
+            margin: 20px auto;
+            position: relative;
+            background: #eee;
+        }
+
+        .car {
+            width: 50px;
+            height: 30px;
+            position: absolute;
+            top: 15px;
+            left: 0;
+            border-radius: 5px;
+        }
+
+        #car1 { background: red; }
+        #car2 { background: blue; }
+        #car3 { background: green; }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🏁 Simple Race Game</h1>
+<button onclick="startRace()">Start Race</button>
+
+<div class="track"><div id="car1" class="car"></div></div>
+<div class="track"><div id="car2" class="car"></div></div>
+<div class="track"><div id="car3" class="car"></div></div>
+
+<h2 id="result"></h2>
+
+<script>
+function startRace() {
+    let cars = [
+        document.getElementById("car1"),
+        document.getElementById("car2"),
+        document.getElementById("car3")
+    ];
+
+    let positions = [0, 0, 0];
+    let finishLine = window.innerWidth * 0.8;
+
+    document.getElementById("result").innerText = "";
+
+    let interval = setInterval(() => {
+        for (let i = 0; i < cars.length; i++) {
+            let move = Math.random() * 10;
+            positions[i] += move;
+            cars[i].style.left = positions[i] + "px";
+
+            if (positions[i] >= finishLine) {
+                clearInterval(interval);
+                document.getElementById("result").innerText = 
+                    "🎉 Car " + (i + 1) + " wins!";
+                break;
+            }
+        }
+    }, 50);
+}
+</script>
+
+</body>
+</html>
